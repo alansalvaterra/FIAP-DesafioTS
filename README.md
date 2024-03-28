@@ -13,7 +13,14 @@ Estrutura proposta para entidade Livro: cada livro pode possuir um título, auto
 Desenvolvimento do projeto utilizando a versão mais recente do TypeScript para garantir que o seu código esteja atualizado. Integração do sistema a um banco de dados que pode ser um NoSQL ou SQL. Neste cenário, você pode utilizar o Docker ou um banco de dados grátis como o PostgreSQL na plataforma Supabase.
 
 
+## Tecnologias utilizadas:
+
+### TypeScript
+### TypeORM
+### SQLite
+
+
 ## Para rodar o projeto:
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+
+1. `npm i`
+2. `npm start`
