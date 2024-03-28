@@ -27,9 +27,9 @@ AppDataSource.initialize().then(async () => { //Inicializa conexão com o banco 
         'Primeiro Livro', //TITLE
         'Alan', //AUTHOR
         100 //YEAR
-        );
-        const updatedBook = await BookService.findById(AppDataSource.manager, bookToUpdate.id);
-        console.log('Livro atualizado: ', updatedBook);
+    );
+    const updatedBook = await BookService.findById(AppDataSource.manager, bookToUpdate.id);
+    console.log('Livro atualizado: ', updatedBook);
 
     //DELETE
     const bookToDelete = books[1];
