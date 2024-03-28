@@ -1,20 +1,40 @@
-import { AppDataSource } from "./data-source"
-import { Book } from "./entity/Book"
+import { AppDataSource } from './data-source';
+import { BookService } from './BookService';
 
-AppDataSource.initialize().then(async () => {
+AppDataSource.initialize().then(async () => { //Inicializa conexão com o banco de dados
+ 
+    const books = await BookService.findAll(AppDataSource.manager); //Lista todos os livros
 
-    console.log("Inserting a new book into the database...")
-    const book = new Book()
-    book.title = "Livro 2"
-    book.author = "Alan Salvaterra"
-    book.year = 2020
-    await AppDataSource.manager.save(book)
-    console.log("Saved a new book with id: " + book.id)
+    //CREATE BOOK
+    console.log('Criando novo livro...');
+    const book = await BookService.createBook(
+        AppDataSource.manager, 
+        'Livro 20 - Testando',   //TITLE
+        'Alan Salvaterra',      //AUTHOR
+        3000                    //YEAR
+    );
+    console.log(`Novo livro criado com o Id de número ${ book.id }`);
+   
+    //FIND ALL
+    console.log('Carregando todos os livros...');
+    console.log(books);
+ 
+    //UPDATE
+    const bookToUpdate = books[0];
+    await BookService.updateBook(
+        AppDataSource.manager, 
+        bookToUpdate.id, //ID
+        'Primeiro Livro', //TITLE
+        'Alan', //AUTHOR
+        100 //YEAR
+        );
+        const updatedBook = await BookService.findById(AppDataSource.manager, bookToUpdate.id);
+        console.log('Livro atualizado: ', updatedBook);
 
-    console.log("Loading books from the database...")
-    const books = await AppDataSource.manager.find(Book)
-    console.log("Loaded bookss: ", books)
-
-    console.log("Here you can setup and run express / fastify / any other framework.")
-
-}).catch(error => console.log(error))
+    //DELETE
+    const bookToDelete = books[1];
+    await BookService.deleteBook(
+        AppDataSource.manager, 
+        bookToDelete.id);
+    console.log(`O livro com o Id ${ bookToDelete.id } foi deletado`);
+});
