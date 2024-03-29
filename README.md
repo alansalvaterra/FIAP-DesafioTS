@@ -3,7 +3,7 @@
 
 Desenvolver um sistema de gerenciamento de biblioteca utilizando a última versão do TypeScript. O foco será criar um CRUD (Create, Read, Update, Delete), que se conecta a um banco de dados, podendo ser NoSQL ou SQL.
 
-#### Requisitos funcionais:
+### Requisitos funcionais:
 
 Gerenciamento de livros: o objetivo do seu sistema será disponibilizar uma API que tenha as funcionalidades de um CRUD para que uma aplicação Front-end possa gerenciar estes dados.
 Estrutura proposta para entidade Livro: cada livro pode possuir um título, autor(a), ISBN, ano de publicação e, caso queira se aventurar, pode adicionar uma Entidade Editora, assim um livro pode fazer parte de uma Editora e uma Editora pode ter uma lista de livros
@@ -15,9 +15,11 @@ Desenvolvimento do projeto utilizando a versão mais recente do TypeScript para 
 
 ## Tecnologias utilizadas:
 
-### TypeScript
-### TypeORM
-### SQLite
+TypeScript
+
+TypeORM
+
+SQLite
 
 
 ## Para rodar o projeto:
