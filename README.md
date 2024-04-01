@@ -26,6 +26,7 @@ A API oferece as seguintes rotas:
 
 ## Tecnologias utilizadas:
 
+- Node.js: Ambiente de execução de código JavaScript do lado do servidor, amplamente utilizado para criar aplicações web e API REST.
 - TypeScript: Linguagem de programação utilizada para o desenvolvimento do projeto.
 - TypeORM: Biblioteca de ORM utilizada para interagir com o banco de dados SQL.
 - SQLite: Banco de dados SQL utilizado para armazenar os dados dos livros.
