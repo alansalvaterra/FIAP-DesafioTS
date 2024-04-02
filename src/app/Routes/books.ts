@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import { AppDataSource } from '../data-source';
-import { BookService } from '../BookService';
+import { AppDataSource } from '../../database/data-source';
+import { BookService } from '../services/BookService';
 
 const bookRoutes = express.Router();
 

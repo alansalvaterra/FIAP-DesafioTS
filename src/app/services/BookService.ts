@@ -1,5 +1,5 @@
 import { EntityManager } from 'typeorm';
-import { Book } from './entity/Book';
+import { Book } from '../entities/Book';
 
 export class BookService {
     static async findAll(manager: EntityManager): Promise<Book[]> {
