@@ -1,12 +1,11 @@
 import express, { Request, Response } from 'express';
-import { AppDataSource } from '../../database/data-source';
 import { BookService } from '../services/BookService';
 
 const bookRoutes = express.Router();
 
 // Rota para listar todos os livros (GET /books)
 bookRoutes.get('/', async (req: Request, res: Response) => {
-    const books = await BookService.findAll(AppDataSource.manager);
+    const books = await BookService.readAll();
     res.json(books);
 });
 
@@ -14,7 +13,7 @@ bookRoutes.get('/', async (req: Request, res: Response) => {
 bookRoutes.get('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const book = await BookService.findById(AppDataSource.manager, parseInt(id));
+        const book = await BookService.readById(parseInt(id));
         if (book) {
             res.json(book);
         } else {
@@ -34,7 +33,7 @@ bookRoutes.post('/', async (req: Request, res: Response) => {
     }
 
     try {
-        const newBook = await BookService.createBook(AppDataSource.manager, title, author, year);
+        const newBook = await BookService.createBook(title, author, year);
         res.status(201).json(newBook);
     } catch (error) {
         res.status(500).json({ message: 'Erro ao adicionar livro', error });
@@ -47,7 +46,7 @@ bookRoutes.put('/:id', async (req: Request, res: Response) => {
     const { title, author, year } = req.body;
 
     try {
-        const updatedBook = await BookService.updateBook(AppDataSource.manager, parseInt(id), title, author, year);
+        const updatedBook = await BookService.updateBook(parseInt(id), title, author, year);
         if (updatedBook) {
             res.json(updatedBook);
         } else {
@@ -63,13 +62,8 @@ bookRoutes.delete('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const bookToDelete = await BookService.findById(AppDataSource.manager, parseInt(id));
-        if (!bookToDelete) {
-            return res.status(404).json({ message: 'Livro não encontrado' });
-        }
-
-        await BookService.deleteBook(AppDataSource.manager, parseInt(id));
-        res.status(204).send();
+        await BookService.deleteBook(parseInt(id));
+        res.json({ message: 'Livro excluído com sucesso' });
     } catch (error) {
         res.status(500).json({ message: 'Erro ao excluir livro', error });
     }

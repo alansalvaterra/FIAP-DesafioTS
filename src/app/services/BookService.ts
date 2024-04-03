@@ -1,43 +1,29 @@
-import { EntityManager } from 'typeorm';
+import { FindOneOptions } from 'typeorm';
 import { Book } from '../entities/Book';
+import { bookRepository } from '../repositories/BookRepository';
+import IBook from '../interfaces/IBook';
+import { readAll, readById, createBook, updateBook, deleteBook } from '../repositories/BookRepository';
 
 export class BookService {
-    static async findAll(manager: EntityManager): Promise<Book[]> {
-        return manager.find(Book);
-    }
-    
-    static async findById(manager: EntityManager, id: number): Promise<Book | undefined> {
-        return manager.findOne(Book, { where: { id } });
+    static async readAll(): Promise<IBook[]> {
+        return bookRepository.find();
     }
 
-    static async createBook(manager: EntityManager, title: string, author: string, year: number): Promise<Book> {
-        const book = new Book();
-        book.title = title;
-        book.author = author;
-        book.year = year;
-        await manager.save(book);
-        return book;
+    static async readById(id: number): Promise<IBook> {
+        const options: FindOneOptions<Book> = { where: { id } };
+        return bookRepository.findOne(options);
     }
 
-    static async updateBook(manager: EntityManager, id: number, title?: string, author?: string, year?: number): Promise<Book | undefined> {
-        const book = await manager.findOne(Book, { where: { id } });
-        if (!book) {
-            return undefined;
-        }
-        if (title !== undefined) {
-            book.title = title;
-        }
-        if (author !== undefined) {
-            book.author = author;
-        }
-        if (year !== undefined) {
-            book.year = year;
-        }
-        await manager.save(book);
-        return book;
+    static async createBook(title: string, author: string, year: number): Promise<IBook> {
+        const newBook = bookRepository.create({ title, author, year });
+        return bookRepository.save(newBook);
     }
 
-    static async deleteBook(manager: EntityManager, id: number): Promise<void> {
-        await manager.delete(Book, id);
+    static async updateBook(id: number, title?: string, author?: string, year?: number): Promise<IBook> {
+        return updateBook(id, title, author, year);
+    }
+
+    static async deleteBook(id: number): Promise<void> {
+        await deleteBook(id);
     }
 }
