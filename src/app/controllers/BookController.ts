@@ -3,14 +3,14 @@ import { BookService } from '../services/BookService';
 
 export class BookController {
     static async create(req: Request, res: Response): Promise<void> {
-        const { title, author, year } = req.body;
-        if (!title || !author || !year) {
+        const { title, author, year, publisherId } = req.body;
+        if (!title || !author || !year || !publisherId) {
             res.status(400).json({ message: 'Todos os campos (título, autor e ano) são obrigatórios' });
             return;
         }
 
         try {
-            const newBook = await BookService.createBook(title, author, year);
+            const newBook = await BookService.createBook(title, author, year, publisherId);
             res.status(201).json(newBook);
         } catch (error) {
             res.status(500).json({ message: 'Erro ao adicionar livro', error });

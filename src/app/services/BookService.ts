@@ -14,8 +14,8 @@ export class BookService {
         return bookRepository.findOne(options);
     }
 
-    static async createBook(title: string, author: string, year: number): Promise<IBook> {
-        const newBook = bookRepository.create({ title, author, year });
+    static async createBook(title: string, author: string, year: number, publisherId: number): Promise<IBook> {
+        const newBook = bookRepository.create({ title, author, year, publisher: { id: publisherId } });
         return bookRepository.save(newBook);
     }
 

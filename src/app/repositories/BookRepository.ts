@@ -2,14 +2,16 @@ import { FindOneOptions } from "typeorm";
 import { AppDataSource } from "../../database/data-source";
 import { Book } from "../entities/Book";
 import IBook from "../interfaces/IBook";
+import { Publisher } from "../entities/Publisher";
 
 export const bookRepository = AppDataSource.getRepository(Book);
 
-export const createBook = (title: string, author: string, year: number): Promise<IBook> => {
+export const createBook = (title: string, author: string, year: number, publisher: Publisher): Promise<IBook> => {
     const newBook = new Book();
     newBook.title = title;
     newBook.author = author;
     newBook.year = year;
+    newBook.publisher = publisher;
 
     return bookRepository.save(newBook);
 }

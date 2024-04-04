@@ -1,5 +1,6 @@
-import bookRoutes from './books';
 import { Router } from 'express';
+import bookRoutes from './books';
+import publisherRoutes from './publisher';
 
 const router = Router();
 
@@ -18,5 +19,8 @@ router.get('/', (req, res) => {
 
 // Rotas relacionadas aos livros (./Routes/books.ts)
 router.use('/books', bookRoutes);
+
+// Rotas relacionadas à editora (./Routes/publisher.ts)
+router.use('/publisher', publisherRoutes);
 
 export default router;
