@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Publisher } from "./Publisher"
 
 @Entity()
 export class Book {
@@ -15,4 +16,6 @@ export class Book {
     @Column()
     year: number
 
+    @ManyToOne(() => Publisher, publisher => publisher.books)
+    publisher: Publisher; 
 }
