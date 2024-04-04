@@ -5,7 +5,7 @@ export class BookController {
     static async create(req: Request, res: Response): Promise<void> {
         const { title, author, year, publisherId } = req.body;
         if (!title || !author || !year || !publisherId) {
-            res.status(400).json({ message: 'Todos os campos (título, autor e ano) são obrigatórios' });
+            res.status(400).json({ message: 'Todos os campos (title, author, year e publisherId) são obrigatórios' });
             return;
         }
 

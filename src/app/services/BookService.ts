@@ -24,6 +24,11 @@ export class BookService {
     }
 
     static async deleteBook(id: number): Promise<void> {
-        await deleteBook(id);
+        const bookToDelete = await bookRepository.findOne({ where: { id }});
+        if (!bookToDelete) {
+            throw new Error('Livro não encontrado')
+        }
+        
+        await bookRepository.delete(id);
     }
 }
